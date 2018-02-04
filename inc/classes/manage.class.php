@@ -2327,7 +2327,7 @@ class Manage {
 			if ($boardid != '') {
 				if ($_POST['order'] >= 0 && $_POST['maxpages'] >= 0 && $_POST['markpage'] >= 0 && $_POST['maxage'] >= 0 && $_POST['messagelength'] >= 0 && ($_POST['defaultstyle'] == '' || in_array($_POST['defaultstyle'], explode(':', KU_STYLES)) || in_array($_POST['defaultstyle'], explode(':', KU_TXTSTYLES)))) {
 					$filetypes = array();
-					while (list($postkey, $postvalue) = each($_POST)) {
+					foreach ($_POST as $postkey => $postvalue) {
 						if (substr($postkey, 0, 9) == 'filetype_') {
 							$filetypes[] = substr($postkey, 9);
 						}
@@ -2347,7 +2347,10 @@ class Manage {
 
 					if (($_POST['type'] == '0' || $_POST['type'] == '1' || $_POST['type'] == '2' || $_POST['type'] == '3') && ($_POST['uploadtype'] == '0' || $_POST['uploadtype'] == '1' || $_POST['uploadtype'] == '2')) {
 						if (!($_POST['uploadtype'] != '0' && $_POST['type'] == '3')) {
-							if(count($_POST['allowedembeds']) > 0) {
+							if (is_array($_POST['allowedembeds'])) {
+                                $count_allowedembeds = count($_POST['allowedembeds']);
+                            }
+                            if ($count_allowedembeds > 0) {
 								$updateboard_allowedembeds = '';
 
 								$results = $tc_db->GetAll("SELECT `filetype` FROM `" . KU_DBPREFIX . "embeds`");
