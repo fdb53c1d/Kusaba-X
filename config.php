@@ -242,7 +242,10 @@ if (!isset($tc_db) && !isset($preconfig_db_unnecessary)) {
 	}
 
 	$results_events = $tc_db->GetAll("SELECT * FROM `" . KU_DBPREFIX . "events` WHERE `at` <= " . time());
-	if (count($results_events) > 0) {
+    if (is_array($results_events)) {
+        $count_results_events = count($results_events);
+    }
+	if ($count_results_events > 0) {
 		if ($tc_db->ErrorMsg() == '') {
 			foreach($results_events AS $line_events) {
 				if ($line_events['name'] == 'sitemap') {
