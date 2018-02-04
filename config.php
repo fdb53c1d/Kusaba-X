@@ -117,9 +117,10 @@ if (!$cache_loaded) {
 		$cf['KU_MENUSTYLESWITCHER'] = true; // Whether or not to display the different styles in a clickable switcher in the menu
 
 	// Limitations
-		$cf['KU_NEWTHREADDELAY'] = 30; // Minimum time in seconds a user must wait before posting a new thread again
-		$cf['KU_REPLYDELAY']     = 7; // Minimum time in seconds a user must wait before posting a reply again
-		$cf['KU_LINELENGTH']     = 150; // Used when cutting long post messages on pages and placing the message too long notification
+		$cf['KU_NEWTHREADDELAY']     = 30; // Minimum time in seconds a user must wait before posting a new thread again
+		$cf['KU_REPLYDELAY']         = 7; // Minimum time in seconds a user must wait before posting a reply again
+		$cf['KU_LINELENGTH']         = 150; // Used when cutting long post messages on pages and placing the message too long notification
+		$cf['KU_ALLOWDUPLICATEFILE'] = true; // Allow posting with duplicate files
 
 	// Image handling
 		$cf['KU_THUMBWIDTH']       = 200; // Maximum thumbnail width
