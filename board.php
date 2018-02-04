@@ -411,7 +411,7 @@ if ($posting_class->CheckValidPost($is_oekaki)) {
 			} else {
 				echo _gettext('This board does not allow post reporting.') . '<br />';
 			}
-		} elseif (isset($_POST['postpassword']) || ( isset($_POST['moddelete']) && (require_once KU_ROOTDIR . 'inc/classes/manage.class.php') && Manage::CurrentUserIsModeratorOfBoard($board_class->board['name'], $_SESSION['manageusername']) && $ismod = true)) {
+		} elseif (isset($_POST['postpassword']) || ( isset($_POST['moddelete']) && (require_once KU_ROOTDIR . 'inc/classes/manage.class.php') && (new Manage)->CurrentUserIsModeratorOfBoard($board_class->board['name'], $_SESSION['manageusername']) && $ismod = true)) {
 			// They clicked the Delete button
 			if ($_POST['postpassword'] != '' || $ismod) {
 				if (md5($_POST['postpassword']) == $post_class->post['password'] || $ismod) {
