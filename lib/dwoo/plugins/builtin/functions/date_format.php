@@ -48,6 +48,10 @@ function Dwoo_Plugin_date_format(Dwoo $dwoo, $value, $format='%b %e, %Y', $defau
 			$_win_from[] = '%l';
 			$_win_to[] = sprintf('%\' 2d', date('h', $value));
 		}
+        if (strpos($format, '%P') !== false) {
+			$_win_from[] = '%P';
+            $_win_to[] = sprintf('%\' 2s', date('a', $value));
+		}
 		$format = str_replace($_win_from, $_win_to, $format);
 	}
 	return strftime($format, $value);
