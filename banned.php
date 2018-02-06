@@ -33,13 +33,15 @@ require KU_ROOTDIR . 'inc/classes/bans.class.php';
 
 $bans_class = new Bans();
 
-if (isset($_POST['appealmessage']) && KU_APPEAL != '') {
+if (isset($_POST['appealmessage']) && KU_APPEAL) {
 	$results = $tc_db->GetAll("SELECT * FROM `".KU_DBPREFIX."banlist` WHERE `type` = '0' AND `ipmd5` = '" . md5($_SERVER['REMOTE_ADDR']) . "' AND `id` = " . $tc_db->qstr($_POST['banid']) . "LIMIT 1");
 	if (count($results)>0) {
 		foreach($results AS $line) {
 			if ($line['appealat'] > 0 && $line['appealat'] < time()) {
-				$tc_db->Execute("UPDATE `".KU_DBPREFIX."banlist` SET `appealat` = '-1' , appeal = ".$tc_db->qstr($_POST['appealmessage'])." WHERE `id` = '" . $line['id'] . "'");
+				if(!mb_check_encoding($_POST['appealmessage'], 'UTF-8'))
+					$_POST['appealmessage'] = mb_convert_encoding($_POST['appealmessage'], 'UTF-8');
 
+				$tc_db->Execute("UPDATE `".KU_DBPREFIX."banlist` SET `appealat` = '-1' , appeal = ".$tc_db->qstr(htmlspecialchars($_POST['appealmessage']))." WHERE `id` = '" . $line['id'] . "'");
 				echo 'Your appeal has been sent and is pending review.';
 			} else {
 				echo 'You may not appeal that ban at this time.';
